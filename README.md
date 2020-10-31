@@ -1,4 +1,9 @@
-# Getting Started with Create React App
+# Currency Converter
+
+- this project use [Foreign exchange rates open API](http://exchangeratesapi.io/), based on European Central Bank data.
+- build with CRA, to run use `npm i && npm start`, details below:
+
+---
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
