@@ -22,6 +22,10 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LucasMatuszewski/currency-converter.git"
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
