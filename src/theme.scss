@@ -1,0 +1,40 @@
+@charset "utf-8";
+
+// Brand colors
+$green: #38b6ab;
+$black: #000;
+
+// Update Bulma's global variables
+$grey-dark: #595959;
+$grey: #9094a0;
+$grey-light: #f5f6fb;
+$red: #e9374e;
+$primary: $green;
+$info: $black;
+$link: $grey;
+$text: $black;
+$body-color: $black;
+$widescreen-enabled: false;
+$fullhd-enabled: false;
+
+// Update some of Bulma's component variables
+$input-border-color: transparent;
+$input-shadow: none;
+$label-weight: 400;
+
+.is-centered {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+// Import only what we need from Bulma
+@import '../node_modules/bulma/sass/utilities/_all.sass';
+@import '../node_modules/bulma/sass/base/_all.sass';
+@import '../node_modules/bulma/sass/helpers/_all.sass';
+@import '../node_modules/bulma/sass/elements/button.sass';
+@import '../node_modules/bulma/sass/elements/container.sass';
+@import '../node_modules/bulma/sass/elements/box.sass';
+@import '../node_modules/bulma/sass/elements/title.sass';
+@import '../node_modules/bulma/sass/elements/other.sass';
+@import '../node_modules/bulma/sass/form/_all.sass';
