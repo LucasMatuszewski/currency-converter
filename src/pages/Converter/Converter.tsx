@@ -19,9 +19,9 @@ const Converter = () => {
   const dispatch = useContextDispatch();
 
   const { urlCurrency } = useParams<RouteParams>();
-  const defaultCurrency: Currencies = urlCurrency
+  const defaultCurrency: Currencies | null = urlCurrency
     ? (urlCurrency.toUpperCase() as Currencies)
-    : 'EUR';
+    : null;
 
   const [ratesDate, setRatesDate] = useState<string>();
   const [rates, setRates] = useState<RatesType>();

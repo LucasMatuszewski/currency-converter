@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useContext } from 'react';
+import React, { createContext, useReducer, useContext, useEffect } from 'react';
 import { Currencies } from '../types';
 
 // With TS we get suggestions and errors without 'constants' file with freezed 'types' object:
@@ -57,13 +57,22 @@ function contextReducer(state: State, action: Action) {
   }
 }
 
-const initialState: State = {
+const defaultState: State = {
   baseCurrency: 'EUR',
   amount: 1,
 };
 
 function ContextProvider({ children }: ContextProviderProps) {
+  const storageKey = 'userState';
+  const persistedState = window.localStorage.getItem(storageKey);
+  const initialState = persistedState
+    ? JSON.parse(persistedState)
+    : defaultState;
   const [state, dispatch] = useReducer(contextReducer, initialState);
+
+  useEffect(() => {
+    window.localStorage.setItem(storageKey, JSON.stringify(state));
+  }, [state]);
 
   return (
     <StateContext.Provider value={state}>
