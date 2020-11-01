@@ -11,7 +11,7 @@ interface RatesType {
 
 function Converter() {
   const [baseCurrency, setBaseCurrency] = useState<Currencies>('EUR');
-  const [amount, setAmount] = useState(1);
+  const [amount, setAmount] = useState<number | undefined>(1);
   const [ratesDate, setRatesDate] = useState<string>();
   const [rates, setRates] = useState<RatesType>();
 
@@ -49,12 +49,21 @@ function Converter() {
                 className={`input${errors.amount ? ' is-danger' : ''}`}
                 name="amount"
                 id="amount"
-                type="text"
+                type="number"
+                // min="1"
                 required
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  setAmount(parseInt(event.target.value))
-                }
-                value={amount}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  const amountValue = event.target.value
+                    ? parseFloat(event.target.value)
+                    : false;
+                  if (typeof amountValue !== 'number' || isNaN(amountValue)) {
+                    // set error
+                    setAmount(undefined);
+                    return;
+                  }
+                  setAmount(amountValue);
+                }}
+                value={amount ? amount : ''}
               />
             </p>
             <p className="control">
@@ -97,7 +106,9 @@ function Converter() {
                     key={`currency-${currency}`}
                   >
                     <p className="title">{currency}</p>
-                    <p className="subtitle">{(rate * amount).toFixed(4)}</p>
+                    <p className="subtitle">
+                      {amount ? (rate * amount).toFixed(4) : '--'}
+                    </p>
                   </article>
                 );
               })
