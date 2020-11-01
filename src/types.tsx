@@ -1,3 +1,7 @@
+export interface RouteParams {
+  urlCurrency?: Currencies;
+}
+
 export type Currencies =
   | 'EUR'
   | 'USD'

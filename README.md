@@ -1,6 +1,13 @@
 # Currency Converter
 
+- UI build with [Bulma](https://bulma.io/) + SCSS.
 - this project use [Foreign exchange rates open API](http://exchangeratesapi.io/), based on European Central Bank data.
+- todo:
+  - multi-select with checkboxes to choose destination currencies
+  - E2E tests with Cypress
+  - change exchange rates date in converter (date picker)
+  - add currency to favorites (star icon on tile + save in local storage + tile color change)
+  - add charts with currency trend in chosen period of time
 - build with CRA, to run use `npm i && npm start`, details below:
 
 ---

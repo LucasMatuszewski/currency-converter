@@ -1,22 +1,33 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import './converter.scss';
 import Layout from '../../components/Layout/Layout';
 import { API } from '../../services/api';
-import { Currencies } from '../../types';
+import { Currencies, RouteParams } from '../../types';
 
 interface RatesType {
   [key: string]: number;
 }
 
 function Converter() {
-  const [baseCurrency, setBaseCurrency] = useState<Currencies>('EUR');
+  const { urlCurrency } = useParams<RouteParams>();
+  const defaultCurrency: Currencies = urlCurrency
+    ? (urlCurrency.toUpperCase() as Currencies)
+    : 'EUR';
+  const [baseCurrency, setBaseCurrency] = useState<Currencies>(
+    defaultCurrency || 'EUR'
+  );
   const [amount, setAmount] = useState<number | undefined>(1);
   const [ratesDate, setRatesDate] = useState<string>();
   const [rates, setRates] = useState<RatesType>();
 
-  const currenciesArray: Currencies[] = ['SEK', 'USD', 'PLN', 'EUR'];
+  const currenciesArray: Currencies[] = ['EUR', 'GBP', 'USD', 'PLN', 'SEK'];
   const errors: any = {}; /** @todo error handling */
+
+  useEffect(() => {
+    defaultCurrency && setBaseCurrency(defaultCurrency);
+  }, [defaultCurrency]);
 
   useEffect(() => {
     const fetchCurrencies = async () => {
@@ -36,9 +47,7 @@ function Converter() {
         <div className="converter-header">
           <h1 className="title">Currency Converter</h1>
           {ratesDate ? (
-            <p className="subtitle is-italic">
-              Exchange rates on day: {ratesDate}
-            </p>
+            <p className="subtitle is-italic">Exchange rates on: {ratesDate}</p>
           ) : null}
         </div>
 
