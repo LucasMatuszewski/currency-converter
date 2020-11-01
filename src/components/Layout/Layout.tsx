@@ -20,7 +20,7 @@ const Layout: React.FC<LayoutProps> = ({
   return (
     <div className="layout-container">
       <Helmet>
-        <title>{title}</title>
+        <title>{title} - Currently</title>
       </Helmet>
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">

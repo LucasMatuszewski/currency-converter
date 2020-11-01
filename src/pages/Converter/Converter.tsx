@@ -48,7 +48,7 @@ const Converter = () => {
   }, [baseCurrency]);
 
   return (
-    <Layout>
+    <Layout title={`${baseCurrency} - Currency Converter`}>
       <div className="box">
         <div className="converter-header">
           <h1 className="title">Currency Converter</h1>

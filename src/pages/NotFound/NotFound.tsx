@@ -6,7 +6,7 @@ import './notFound.scss';
 
 function NotFound() {
   return (
-    <Layout title="Page Not Found - Currency Converter">
+    <Layout title="Page Not Found">
       <div className="box has-text-centered not-found-container">
         <h1 className="has-text-primary">OOPS!</h1>
         <h2 className="has-text-weight-semibold">
