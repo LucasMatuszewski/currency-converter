@@ -1,0 +1,23 @@
+@import '../../../node_modules/bulma/sass/utilities/initial-variables.sass';
+
+.not-found-container {
+  margin: 0;
+  padding: 35px;
+  max-width: 100%;
+  & > h1 {
+    font-weight: 900;
+    font-size: 20vw;
+    margin-bottom: 0;
+    @media (min-width: $tablet) {
+      font-size: 8rem;
+      margin-bottom: 1rem;
+    }
+  }
+  & > h2 {
+    font-size: 6vw;
+    margin-bottom: 2rem;
+    @media (min-width: $tablet) {
+      font-size: 1.8rem;
+    }
+  }
+}
