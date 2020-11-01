@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
 import { useContextDispatch, useContextState } from '../../../services/context';
 import { Currencies } from '../../../types';
 
@@ -11,6 +13,8 @@ const ConverterForm = () => {
   const { amount, baseCurrency } = useContextState();
   const dispatch = useContextDispatch();
   const [errors, setErrors] = useState<ErrorsType>({});
+
+  let history = useHistory();
 
   /**
    * @todo use objects [{iso: 'CNY', name: 'Chinese Yuan Renminbi' }]
@@ -26,6 +30,38 @@ const ConverterForm = () => {
     'USD',
   ];
 
+  const handleAmountChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    const amountValue = event.target.value
+      ? parseFloat(event.target.value)
+      : false;
+    if (typeof amountValue !== 'number' || isNaN(amountValue)) {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        amount: 'Amount has to be a number',
+      }));
+      dispatch({ type: 'SET_AMOUNT', amount: undefined });
+      return;
+    }
+
+    dispatch({ type: 'SET_AMOUNT', amount: amountValue });
+    setErrors(prevErrors => ({
+      ...prevErrors,
+      amount: '',
+    }));
+  };
+
+  const handleBaseCurrencyChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void => {
+    dispatch({
+      type: 'SET_BASE',
+      baseCurrency: event.target.value as Currencies,
+    }); // temporary fix "as"
+    history.push(`/currency/${event.target.value.toLocaleLowerCase()}`);
+  };
+
   return (
     <form noValidate className="block">
       <div className="field has-addons has-addons-centered">
@@ -36,27 +72,8 @@ const ConverterForm = () => {
             placeholder="Amount"
             id="amount"
             type="number"
-            // min="1"
             required
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              const amountValue = event.target.value
-                ? parseFloat(event.target.value)
-                : false;
-              if (typeof amountValue !== 'number' || isNaN(amountValue)) {
-                setErrors(prevErrors => ({
-                  ...prevErrors,
-                  amount: 'Amount has to be a number',
-                }));
-                dispatch({ type: 'SET_AMOUNT', amount: undefined });
-                return;
-              }
-
-              dispatch({ type: 'SET_AMOUNT', amount: amountValue });
-              setErrors(prevErrors => ({
-                ...prevErrors,
-                amount: '',
-              }));
-            }}
+            onChange={handleAmountChange}
             value={amount ? amount : ''}
           />
           {errors.amount ? (
@@ -73,13 +90,7 @@ const ConverterForm = () => {
               name="currency"
               id="currency"
               required
-              onChange={
-                (event: React.ChangeEvent<HTMLSelectElement>) =>
-                  dispatch({
-                    type: 'SET_BASE',
-                    baseCurrency: event.target.value as Currencies,
-                  }) // temporary fix "as"
-              }
+              onChange={handleBaseCurrencyChange}
               value={baseCurrency}
             >
               {currenciesArray.map((currency: Currencies) => (
