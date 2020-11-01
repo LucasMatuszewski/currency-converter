@@ -19,8 +19,6 @@ $widescreen-enabled: false;
 $fullhd-enabled: false;
 
 // Update some of Bulma's component variables
-$input-border-color: transparent;
-$input-shadow: none;
 $label-weight: 400;
 $navbar-background-color: $transparent;
 $footer-background-color: $transparent;
@@ -40,6 +38,7 @@ $footer-padding: 2rem 1.5rem 2rem !default;
 @import '../node_modules/bulma/sass/layout/section.sass';
 @import '../node_modules/bulma/sass/elements/button.sass';
 @import '../node_modules/bulma/sass/elements/container.sass';
+@import '../node_modules/bulma/sass/elements/notification.sass';
 @import '../node_modules/bulma/sass/elements/box.sass';
 @import '../node_modules/bulma/sass/elements/title.sass';
 @import '../node_modules/bulma/sass/elements/other.sass';
