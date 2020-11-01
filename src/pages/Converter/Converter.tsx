@@ -33,56 +33,60 @@ function Converter() {
   return (
     <Layout>
       <div className="box">
-        <h1 className="title">Currency Converter</h1>
-
-        <div>
-          <form noValidate>
-            <div className="field has-addons has-addons-centered">
-              <p className="control">
-                <input
-                  className={`input${errors.amount ? ' is-danger' : ''}`}
-                  name="amount"
-                  id="amount"
-                  type="text"
-                  required
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                    setAmount(parseInt(event.target.value))
-                  }
-                  value={amount}
-                />
-              </p>
-              <p className="control">
-                <span
-                  className={`select is-fullwidth${
-                    errors.currency ? ' is-danger' : ''
-                  }`}
-                >
-                  <select
-                    name="currency"
-                    id="currency"
-                    required
-                    onChange={
-                      (event: React.ChangeEvent<HTMLSelectElement>) =>
-                        setBaseCurrency(event.target.value as Currencies) // temporary fix "as"
-                    }
-                    value={baseCurrency}
-                  >
-                    {currenciesArray.map((currency: Currencies) => (
-                      <option key={`key-${currency}`} value={currency}>
-                        {currency}
-                      </option>
-                    ))}
-                  </select>
-                </span>
-              </p>
-              {errors.amount ? (
-                <p className="help is-danger">{errors.amount}</p>
-              ) : null}
-            </div>
-          </form>
+        <div className="converter-header">
+          <h1 className="title">Currency Converter</h1>
+          {ratesDate ? (
+            <p className="subtitle is-italic">
+              Exchange rates on day: {ratesDate}
+            </p>
+          ) : null}
         </div>
 
-        {ratesDate ? <p className="subtitle">Rates on day: {ratesDate}</p> : ''}
+        <form noValidate className="block">
+          <div className="field has-addons has-addons-centered">
+            <p className="control">
+              <input
+                className={`input${errors.amount ? ' is-danger' : ''}`}
+                name="amount"
+                id="amount"
+                type="text"
+                required
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                  setAmount(parseInt(event.target.value))
+                }
+                value={amount}
+              />
+            </p>
+            <p className="control">
+              <span
+                className={`select is-fullwidth${
+                  errors.currency ? ' is-danger' : ''
+                }`}
+              >
+                <select
+                  name="currency"
+                  id="currency"
+                  required
+                  onChange={
+                    (event: React.ChangeEvent<HTMLSelectElement>) =>
+                      setBaseCurrency(event.target.value as Currencies) // temporary fix "as"
+                  }
+                  value={baseCurrency}
+                >
+                  {currenciesArray.map((currency: Currencies) => (
+                    <option key={`key-${currency}`} value={currency}>
+                      {currency}
+                    </option>
+                  ))}
+                </select>
+              </span>
+            </p>
+            {errors.amount ? (
+              <p className="help is-danger">{errors.amount}</p>
+            ) : null}
+          </div>
+        </form>
+
         <div className="currency-grid">
           {rates
             ? Object.entries(rates).map(([currency, rate]) => {
