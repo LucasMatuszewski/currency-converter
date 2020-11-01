@@ -42,6 +42,7 @@ const Converter = () => {
     };
     /**
      * @todo use ref to check if base has changed, if not don't fetch data again
+     * @todo cache results
      */
     fetchCurrencies();
   }, [baseCurrency]);

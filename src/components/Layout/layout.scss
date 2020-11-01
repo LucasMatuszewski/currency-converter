@@ -3,7 +3,7 @@
 .layout-container {
   background-image: url('./background.jpg');
   background-position: top;
-  background-size: cover;
+  background-size: auto;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -16,4 +16,5 @@
 
 .section {
   height: 100%;
+  flex-grow: 1;
 }
