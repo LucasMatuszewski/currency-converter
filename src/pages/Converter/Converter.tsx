@@ -4,21 +4,22 @@ import { useParams } from 'react-router-dom';
 import './converter.scss';
 import Layout from '../../components/Layout/Layout';
 import { API } from '../../services/api';
+import { useContextDispatch, useContextState } from '../../services/context';
 import { Currencies, RouteParams } from '../../types';
 
 interface RatesType {
   [key: string]: number;
 }
 
-function Converter() {
+const Converter = () => {
+  const { amount, baseCurrency } = useContextState();
+  const dispatch = useContextDispatch();
+
   const { urlCurrency } = useParams<RouteParams>();
   const defaultCurrency: Currencies = urlCurrency
     ? (urlCurrency.toUpperCase() as Currencies)
     : 'EUR';
-  const [baseCurrency, setBaseCurrency] = useState<Currencies>(
-    defaultCurrency || 'EUR'
-  );
-  const [amount, setAmount] = useState<number | undefined>(1);
+
   const [ratesDate, setRatesDate] = useState<string>();
   const [rates, setRates] = useState<RatesType>();
 
@@ -26,8 +27,9 @@ function Converter() {
   const errors: any = {}; /** @todo error handling */
 
   useEffect(() => {
-    defaultCurrency && setBaseCurrency(defaultCurrency);
-  }, [defaultCurrency]);
+    defaultCurrency &&
+      dispatch({ type: 'SET_BASE', baseCurrency: defaultCurrency });
+  }, [defaultCurrency, dispatch]);
 
   useEffect(() => {
     const fetchCurrencies = async () => {
@@ -41,6 +43,7 @@ function Converter() {
      */
     fetchCurrencies();
   }, [baseCurrency]);
+
   return (
     <Layout>
       <div className="box">
@@ -67,10 +70,11 @@ function Converter() {
                     : false;
                   if (typeof amountValue !== 'number' || isNaN(amountValue)) {
                     // set error
-                    setAmount(undefined);
+                    dispatch({ type: 'SET_AMOUNT', amount: undefined });
                     return;
                   }
-                  setAmount(amountValue);
+
+                  dispatch({ type: 'SET_AMOUNT', amount: amountValue });
                 }}
                 value={amount ? amount : ''}
               />
@@ -87,7 +91,10 @@ function Converter() {
                   required
                   onChange={
                     (event: React.ChangeEvent<HTMLSelectElement>) =>
-                      setBaseCurrency(event.target.value as Currencies) // temporary fix "as"
+                      dispatch({
+                        type: 'SET_BASE',
+                        baseCurrency: event.target.value as Currencies,
+                      }) // temporary fix "as"
                   }
                   value={baseCurrency}
                 >
@@ -126,6 +133,6 @@ function Converter() {
       </div>
     </Layout>
   );
-}
+};
 
 export default Converter;
