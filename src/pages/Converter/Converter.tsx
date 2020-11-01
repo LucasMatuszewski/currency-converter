@@ -65,9 +65,15 @@ const Converter = () => {
           <div className="currency-grid">
             {Object.entries(rates).map(([currency, rate]) => {
               if (currency === baseCurrency) return '';
+              const tileColor =
+                rate > 1.5
+                  ? 'is-success'
+                  : rate < 0.8
+                  ? 'is-danger'
+                  : 'is-warning';
               return (
                 <article
-                  className="notification is-primary"
+                  className={`notification ${tileColor}`}
                   key={`currency-${currency}`}
                 >
                   <p className="title">{currency}</p>
