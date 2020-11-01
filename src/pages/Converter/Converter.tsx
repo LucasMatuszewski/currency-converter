@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 import './converter.scss';
 import { API } from '../../services/api';
 import { useContextDispatch, useContextState } from '../../services/context';
 import { Currencies, RouteParams } from '../../types';
 
-import Layout from '../../components/Layout/Layout';
 import Loader from '../../components/Loader/Loader';
 import ConverterForm from './ConverterForm/ConverterForm';
 
@@ -48,47 +48,48 @@ const Converter = () => {
   }, [baseCurrency]);
 
   return (
-    <Layout title={`${baseCurrency} - Currency Converter`}>
-      <div className="box">
-        <div className="converter-header">
-          <h1 className="title">Currency Converter</h1>
-          {ratesDate ? (
-            <p className="subtitle is-italic">Exchange rates on: {ratesDate}</p>
-          ) : null}
-        </div>
-
-        <ConverterForm />
-
-        {isLoading ? (
-          <Loader />
-        ) : rates ? (
-          <div className="currency-grid">
-            {Object.entries(rates).map(([currency, rate]) => {
-              if (currency === baseCurrency) return '';
-              const tileColor =
-                rate > 1.5
-                  ? 'is-success'
-                  : rate < 0.8
-                  ? 'is-danger'
-                  : 'is-warning';
-              return (
-                <article
-                  className={`notification ${tileColor}`}
-                  key={`currency-${currency}`}
-                >
-                  <p className="title">{currency}</p>
-                  <p className="subtitle">
-                    {amount ? (rate * amount).toFixed(4) : '--'}
-                  </p>
-                </article>
-              );
-            })}
-          </div>
-        ) : (
-          <p>There was some problem to get currency data</p>
-        )}
+    <div className="box">
+      <Helmet>
+        <title>{baseCurrency} - Currency Converter - Currently</title>
+      </Helmet>
+      <div className="converter-header">
+        <h1 className="title">Currency Converter</h1>
+        {ratesDate ? (
+          <p className="subtitle is-italic">Exchange rates on: {ratesDate}</p>
+        ) : null}
       </div>
-    </Layout>
+
+      <ConverterForm />
+
+      {isLoading ? (
+        <Loader />
+      ) : rates ? (
+        <div className="currency-grid">
+          {Object.entries(rates).map(([currency, rate]) => {
+            if (currency === baseCurrency) return '';
+            const tileColor =
+              rate > 1.5
+                ? 'is-success'
+                : rate < 0.8
+                ? 'is-danger'
+                : 'is-warning';
+            return (
+              <article
+                className={`notification ${tileColor}`}
+                key={`currency-${currency}`}
+              >
+                <p className="title">{currency}</p>
+                <p className="subtitle">
+                  {amount ? (rate * amount).toFixed(4) : '--'}
+                </p>
+              </article>
+            );
+          })}
+        </div>
+      ) : (
+        <p>There was some problem to get currency data</p>
+      )}
+    </div>
   );
 };
 
