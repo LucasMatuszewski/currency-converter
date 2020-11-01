@@ -1,4 +1,5 @@
 export type Currencies =
+  | 'EUR'
   | 'USD'
   | 'GBP'
   | 'CAD'
