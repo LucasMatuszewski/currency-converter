@@ -1,0 +1,19 @@
+@import '../../theme.scss';
+
+.layout-container {
+  background-image: url('./background.jpg');
+  background-position: top;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.navbar-brand h2 {
+  font-weight: 700;
+}
+
+.section {
+  height: 100%;
+}
