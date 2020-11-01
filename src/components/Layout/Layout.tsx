@@ -25,7 +25,9 @@ const Layout: React.FC<LayoutProps> = ({
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
           <Link className="navbar-item" to="/">
-            <h2>$ Currency Converter</h2>
+            <h2 className="has-text-primary is-size-4 has-text-weight-semibold">
+              Currently
+            </h2>
           </Link>
           <span
             role="button"

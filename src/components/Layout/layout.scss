@@ -11,7 +11,20 @@
 }
 
 .navbar-brand h2 {
-  font-weight: 700;
+  margin-right: 25px;
+  &:before {
+    content: '$';
+    display: inline-block;
+    margin-right: 10px;
+    color: $white;
+    background-color: $green;
+    border-radius: 25px;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    line-height: 32px;
+    font-size: 25px;
+  }
 }
 
 .section {
