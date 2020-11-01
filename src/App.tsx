@@ -13,7 +13,7 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path={['/', 'currency/:baseCurrency']}>
+        <Route exact path={['/', '/currency/:baseCurrency']}>
           <Converter />
         </Route>
         <Route path={'/not-found'}>
