@@ -97,7 +97,7 @@ function Converter() {
                     key={`currency-${currency}`}
                   >
                     <p className="title">{currency}</p>
-                    <p className="subtitle">{rate * amount}</p>
+                    <p className="subtitle">{(rate * amount).toFixed(4)}</p>
                   </article>
                 );
               })
