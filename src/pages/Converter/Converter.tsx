@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import './converter.scss';
-import Layout from '../../components/Layout/Layout';
 import { API } from '../../services/api';
 import { useContextDispatch, useContextState } from '../../services/context';
 import { Currencies, RouteParams } from '../../types';
+
+import Layout from '../../components/Layout/Layout';
+import Loader from '../../components/Loader/Loader';
 
 interface RatesType {
   [key: string]: number;
@@ -22,6 +24,7 @@ const Converter = () => {
 
   const [ratesDate, setRatesDate] = useState<string>();
   const [rates, setRates] = useState<RatesType>();
+  const [isLoading, setIsLoading] = useState(true);
 
   const currenciesArray: Currencies[] = ['EUR', 'GBP', 'USD', 'PLN', 'SEK'];
   const errors: any = {}; /** @todo error handling */
@@ -33,10 +36,11 @@ const Converter = () => {
 
   useEffect(() => {
     const fetchCurrencies = async () => {
+      setIsLoading(true);
       const result = await API.getLatest(baseCurrency);
-      console.log(result);
       setRatesDate(result.date);
       setRates(result.rates);
+      setIsLoading(false);
     };
     /**
      * @todo use ref to check if base has changed, if not don't fetch data again
@@ -112,24 +116,28 @@ const Converter = () => {
           </div>
         </form>
 
-        <div className="currency-grid">
-          {rates
-            ? Object.entries(rates).map(([currency, rate]) => {
-                if (currency === baseCurrency) return '';
-                return (
-                  <article
-                    className="notification is-primary"
-                    key={`currency-${currency}`}
-                  >
-                    <p className="title">{currency}</p>
-                    <p className="subtitle">
-                      {amount ? (rate * amount).toFixed(4) : '--'}
-                    </p>
-                  </article>
-                );
-              })
-            : 'Loading...'}
-        </div>
+        {isLoading ? (
+          <Loader />
+        ) : rates ? (
+          <div className="currency-grid">
+            {Object.entries(rates).map(([currency, rate]) => {
+              if (currency === baseCurrency) return '';
+              return (
+                <article
+                  className="notification is-primary"
+                  key={`currency-${currency}`}
+                >
+                  <p className="title">{currency}</p>
+                  <p className="subtitle">
+                    {amount ? (rate * amount).toFixed(4) : '--'}
+                  </p>
+                </article>
+              );
+            })}
+          </div>
+        ) : (
+          <p>There was some problem to get currency data</p>
+        )}
       </div>
     </Layout>
   );
