@@ -85,12 +85,18 @@ function Converter() {
         {ratesDate ? <p className="subtitle">Rates on day: {ratesDate}</p> : ''}
         <div className="currency-grid">
           {rates
-            ? Object.entries(rates).map(([currency, rate]) => (
-                <article className="notification is-primary">
-                  <p className="title">{currency}</p>
-                  <p className="subtitle">{rate * amount}</p>
-                </article>
-              ))
+            ? Object.entries(rates).map(([currency, rate]) => {
+                if (currency === baseCurrency) return '';
+                return (
+                  <article
+                    className="notification is-primary"
+                    key={`currency-${currency}`}
+                  >
+                    <p className="title">{currency}</p>
+                    <p className="subtitle">{rate * amount}</p>
+                  </article>
+                );
+              })
             : 'Loading...'}
         </div>
       </div>
