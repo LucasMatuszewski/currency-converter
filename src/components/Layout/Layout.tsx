@@ -48,6 +48,9 @@ const Layout: React.FC<LayoutProps> = ({
           className={`navbar-menu${isMenuActive ? ' is-active' : ''}`}
         >
           <div className="navbar-start">
+            {/**
+             * @todo add 'is-active' on path match when page is selected
+             */}
             <Link to="/" className="navbar-item is-tab">
               Converter
             </Link>
