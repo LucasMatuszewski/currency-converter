@@ -3,6 +3,9 @@
 - UI build with [Bulma](https://bulma.io/) + SCSS,
 - implemented context design based on [Kent C. Dodds article](https://kentcdodds.com/blog/how-to-use-react-context-effectively),
 - foreign exchange rates from [this open API](http://exchangeratesapi.io/), based on European Central Bank data,
+- trends page: Work in Progress (needs some UI and UX fixes)
+- basic integration tests with Testing-Library:
+  - Todo: mock API with [Mock Service Worker](https://mswjs.io/) according to Kent C. Dodds article: [Stop Mocking Fetch](https://kentcdodds.com/blog/stop-mocking-fetch)
 - you can follow my progress in GIT repo by commits and releases,
 - todo ideas:
   - multi-select with checkboxes to choose destination currencies,
