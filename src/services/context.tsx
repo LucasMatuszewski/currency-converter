@@ -6,7 +6,8 @@ type Action =
   | { type: 'SET_BASE'; baseCurrency: Currencies }
   | { type: 'SET_AMOUNT'; amount: number | undefined }
   | { type: 'SET_START_DATE'; startDate: string }
-  | { type: 'SET_END_DATE'; endDate: string };
+  | { type: 'SET_END_DATE'; endDate: string }
+  | { type: 'SET_CONVERT_TO'; convertTo: Currencies };
 
 type Dispatch = (action: Action) => void;
 type State = {
@@ -14,7 +15,7 @@ type State = {
   amount: number | undefined;
   startDate?: string;
   endDate?: string;
-  convertTo?: Currencies[];
+  convertTo?: Currencies;
   favorite?: Currencies[];
 };
 type ContextProviderProps = { children: React.ReactNode };
@@ -51,15 +52,29 @@ function contextReducer(state: State, action: Action) {
         endDate: action.endDate,
       };
     }
+    case 'SET_CONVERT_TO': {
+      return {
+        ...state,
+        convertTo: action.convertTo,
+      };
+    }
     default: {
       throw new Error('Unhandled action type');
     }
   }
 }
 
+/**
+ * @todo use current date as endDate and startDate as endDate minus 30 days
+ * @todo display only dates with available currency rates ?
+ */
+
 const defaultState: State = {
   baseCurrency: 'EUR',
+  convertTo: 'USD',
   amount: 1,
+  startDate: '2020-01-02',
+  endDate: '2020-10-30',
 };
 
 function ContextProvider({ children }: ContextProviderProps) {

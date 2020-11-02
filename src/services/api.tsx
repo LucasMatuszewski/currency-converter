@@ -21,13 +21,14 @@ export const API = {
   getHistory: async (
     startAt: string,
     endAt: string,
-    baseCurrency?: Currencies
+    baseCurrency?: Currencies,
+    convertTo?: Currencies
   ) => {
     try {
       const response = await fetch(
         `${API_URL}/history?start_at=${startAt}&end_at=${endAt}${
           baseCurrency ? `&base=${baseCurrency}` : ''
-        }`
+        }${convertTo ? `&symbols=${convertTo}` : ''}`
       );
       if (response.status >= 400) {
         console.error(response.status);

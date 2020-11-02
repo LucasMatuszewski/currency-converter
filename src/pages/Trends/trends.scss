@@ -1,0 +1,28 @@
+@import '../../../node_modules/bulma/sass/utilities/initial-variables.sass';
+
+.trends-header {
+  text-align: center;
+  margin-bottom: 20px;
+  @media (min-width: $tablet) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+form .control {
+  min-width: 85px;
+}
+
+.trend-grid {
+  display: grid;
+  grid-template-columns: 100%;
+  column-gap: 0%;
+  @media (min-width: $tablet) {
+    grid-template-columns: 49% 49%;
+    column-gap: 2%;
+  }
+  article.notification {
+    margin-bottom: 15px;
+  }
+}

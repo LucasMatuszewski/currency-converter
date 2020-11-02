@@ -48,6 +48,9 @@ const Layout: React.FC = ({ children }) => {
             <Link to="/trends" className="navbar-item is-tab">
               Trends
             </Link>
+            <Link to="/not-existing-url" className="navbar-item is-tab">
+              404
+            </Link>
           </div>
 
           <div className="navbar-end">

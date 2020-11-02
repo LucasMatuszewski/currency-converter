@@ -11,6 +11,7 @@ import Layout from './components/Layout/Layout';
 import Loader from './components/Loader/Loader';
 
 const Converter = lazy(() => import('./pages/Converter/Converter'));
+const Trends = lazy(() => import('./pages/Trends/Trends'));
 const NotFound = lazy(() => import('./pages/NotFound/NotFound'));
 
 function App() {
@@ -22,6 +23,9 @@ function App() {
             <Switch>
               <Route exact path={['/', '/currency/:urlCurrency']}>
                 <Converter />
+              </Route>
+              <Route exact path={'/trends'}>
+                <Trends />
               </Route>
               <Route path={'/not-found'}>
                 <NotFound />
